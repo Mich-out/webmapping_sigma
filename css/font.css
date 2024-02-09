@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Dailymirror'; /* Choisissez un nom pour votre police */
+    src: url('D:/3A/902_1 - Webmapping/projet/font/DailymirrorPersonalUseRegular-7B7gP.ttf') format('truetype'); /* Assurez-vous de spécifier le bon chemin et format */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Dailymirror'; /* Utilisez la police dans votre feuille de style */
+}

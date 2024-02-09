@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+            function showPopup() {
+            // Utilisation de la fonction Bootstrap pour afficher la fenêtre modale
+            $('#newsModal').modal('show');}
+            
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>    
+    
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_12a535684e9cbcfc61dc2e70e64e6fac {
+                    position: relative;
+                    width: 100%;
+                    height: calc(100% - 300px);
+                    margin: 0 auto;
+                    flex-grow: 1;
+                }
+                body {
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                }
+
+                .topnav {
+                overflow: hidden;
+                background-color: #333;
+                }
+
+                .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+                }
+
+                .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+                }
+
+                .topnav a.active {
+                background-color: #04AA6D;
+                color: white;
+                }
+                h1 {
+                    font-family: 'Gill sans', sans-serif;
+                    margin: 0; /* Remove default margin */
+                    padding: 10px 0; /* Add padding for spacing */
+                    border-bottom: 1px solid rgb(107, 106, 106); /* Add white border for separation */
+                }
+                .top-right-image-container {
+                    position: absolute;
+                    top: 1vw; /* Ajustez la position verticale en fonction de vos besoins */
+                    right: 1vw; /* Ajustez la position horizontale en fonction de vos besoins */
+                }
+
+                .top-right-image-container img {
+                    width: 10vw; /* Ajustez la largeur de l'image en fonction de vos besoins */
+                    height: auto; /* Garantit que la hauteur est ajustée proportionnellement à la largeur */
+                    border-radius: 5px; 
+                }
+
+                .opacity_slider_control.ui-slider.ui-slider-vertical.ui-widget.ui-widget-content.ui-corner-all.leaflet-control {
+                    margin-left: 15px;
+                }   
+                
+            </style>
+
+            <!-- Leaflet Styles -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+            <!-- Bootstrap Styles -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+            <link rel="stylesheet" href="D:/3A/902_1 - Webmapping/projet/css/leaflet.wmslegend.css"/>
+            <link rel="stylesheet" href="D:/3A/902_1 - Webmapping/projet/lib/opacity/Control.Opacity.css" />
+            <link rel="stylesheet" href="D:/3A/902_1 - Webmapping/projet/lib/jquery/jquery-ui-1.10.3.custom.min.css" />
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
+
+
+
+            <!-- jQuery -->
+            <script src="D:/3A/902_1 - Webmapping/projet/lib/jquery/jquery-1.9.1.js"></script>
+
+            <!-- Leaflet Scripts -->
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+
+            <!-- Bootstrap Scripts -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+            <!-- Leaflet Plugins Scripts -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+            <script src="D:/3A/902_1 - Webmapping/projet/js/leaflet.wmslegend.js"></script>
+            <script src="https://unpkg.com/leaflet-transparency@latest/leaflet-transparency.js"></script>
+            <script src="D:/3A/902_1 - Webmapping/projet/lib/opacity/Control.Opacity.js"></script>
+            <script src="D:/3A/902_1 - Webmapping/projet/lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+
+        
+</head>
+<body>    
+            <div class="topnav">
+                <h1 style="color: #ffffff; text-align: center; padding: 14px 16px; font-family: 'Rozha One', sans-serif; margin-top: 0.5vw; margin-bottom: 0;">
+                    Présentation de la carte d'essences forestières de Niveau 3</h1>
+                <a href="#" onclick="showPopup('Contexte')">Contexte</a>
+                <a href="#" onclick="showPopup('Informations')">Informations sur la page</a>
+                <a href="#" onclick="showPopup('Sources')">Sources</a>
+            </div>
+            
+            
+            
+            <div class="folium-map" id="map_12a535684e9cbcfc61dc2e70e64e6fac" ></div>
+            <!-- Fenêtre modale Bootstrap -->
+            <div class="modal fade" id="newsModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Contenu de la fenêtre modale -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="modalTitle"></h4>
+                        </div>
+                        <div class="modal-body" id="modalBody"></div>       
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-right-image-container">
+                <img src="D:/3A/902_1 - Webmapping/projet/img/bandeau_master_sigma.jpg" alt="Description de l'image">
+            </div>
+
+            <script>
+                function showPopup(type) {
+                    // Utilisation de la fonction Bootstrap pour afficher la fenêtre modale
+                    $('#newsModal').modal('show');
+                    
+                    // Set modal content based on the type
+                    $('#modalTitle').text(type);
+                    
+                    if (type === 'Contexte') {
+                        $('#modalBody').html('<p>La carte présentée ici a été produite dans le cadre du Master SIGMA, promotion 2023/2024, pour un projet de télédetection. Ce projet visait à produire, via des images Sentinel 2, une classification supervisée des zones de forêt dans la Haute-Garonne. Pour ce faire, trois niveaux de nomenclature, avec des degrés de détail différents, ont été mis en place. Ici, c\'est le troisième niveau qui vous est présenté, le plus détaillé de tous.</p>');
+                    } else if (type === 'Informations') {
+                        // Add information content
+                        $('#modalBody').html('<p>Cette cartographie a été réalisée par Michel Tarby, étudiant en 3ème année de l\'ENSAT</p>');
+                    } else if (type === 'Sources') {
+                        // Add source content
+                        $('#modalBody').html('<p>Sources...</p>');
+                    }
+                }
+
+                
+            </script>
+        
+</body>
+<script>    
+    
+            var map_12a535684e9cbcfc61dc2e70e64e6fac = L.map(
+                "map_12a535684e9cbcfc61dc2e70e64e6fac",
+                {
+                    center: [43.6, 1.44],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+        
+            var macro_element_6b4465d53ddcf38527e04aebb91a1211 = L.tileLayer.wms(
+                "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
+                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl1", "styles": "carte_essences_lvl1", "transparent": true, "version": "1.1.1"}
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+        
+    
+            var macro_element_062c85610f3f60b914dd5cb29d8e523e = L.tileLayer.wms(
+                "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
+                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl2", "styles": "carte_essences_lvl2", "transparent": true,  "version": "1.1.1"}
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+
+            var tile_layer_f463fdceecbe9fa41194a86f263fa164 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+
+            var tile_layer_7dcc31061d08a6967a0b8510badf64e7 = L.tileLayer(
+                "http://mt0.google.com/vt/lyrs=s\u0026hl=en\u0026x={x}\u0026y={y}\u0026z={z}",
+                {"attribution": "Google", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+        
+    
+            var layer_control_e86a184cb30d5a4f53d49b7706346094 = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_f463fdceecbe9fa41194a86f263fa164,
+                    "Google Satellite" : tile_layer_7dcc31061d08a6967a0b8510badf64e7,
+                },
+                overlays :  {
+                    "Carte d\u0027essences de Niveau 1" : macro_element_6b4465d53ddcf38527e04aebb91a1211,
+                    "Carte d\u0027essences de Niveau 2" : macro_element_062c85610f3f60b914dd5cb29d8e523e,
+                },
+            };
+            L.control.layers(
+                layer_control_e86a184cb30d5a4f53d49b7706346094.base_layers,
+                layer_control_e86a184cb30d5a4f53d49b7706346094.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+
+            uri = "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms?";
+            uri += "SERVICE=WMS&VERSION=1.3.0&SLD_VERSION=1.1.0&";
+            uri += "REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=tarby_ruiz_sauger_mervant:carte_essences_lvl2&STYLE=carte_essences_lvl2";
+            L.wmsLegend(uri);
+
+            var higherOpacity = new L.Control.higherOpacity({ position: 'topleft' });
+            map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(higherOpacity);
+            
+            var opacitySlider = new L.Control.opacitySlider({ position: 'topleft'});
+            map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(opacitySlider);
+            var lowerOpacity = new L.Control.lowerOpacity({ position: 'topleft' });
+            map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(lowerOpacity);
+        
+        //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
+        //You only need to call it once. 
+            opacitySlider.setOpacityLayer(macro_element_062c85610f3f60b914dd5cb29d8e523e);
+            
+        //Set initial opacity to 0.5 (Optional)
+            macro_element_062c85610f3f60b914dd5cb29d8e523e.setOpacity(0.5);
+
+            
+
+        
+</script>
