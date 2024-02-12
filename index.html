@@ -8,6 +8,7 @@
             // Utilisation de la fonction Bootstrap pour afficher la fenêtre modale
             $('#newsModal').modal('show');}
             
+            
         </script>
     
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>    
@@ -109,13 +110,13 @@
             <script src="https://unpkg.com/leaflet-transparency@latest/leaflet-transparency.js"></script>
             <script src="lib/opacity/Control.Opacity.js"></script>
             <script src="lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
-
+            
         
 </head>
 <body>    
             <div class="topnav">
                 <h1 style="color: #ffffff; text-align: center; padding: 14px 16px; font-family: 'Rozha One', sans-serif; margin-top: 0.5vw; margin-bottom: 0;">
-                    Présentation de la carte d'essences forestières de Niveau 3</h1>
+                    Présentation de la carte d'essences forestières de Niveau 2</h1>
                 <a href="#" onclick="showPopup('Contexte')">Contexte</a>
                 <a href="#" onclick="showPopup('Informations')">Informations sur la page</a>
                 <a href="#" onclick="showPopup('Sources')">Sources</a>
@@ -154,10 +155,20 @@
                     $('#modalTitle').text(type);
                     
                     if (type === 'Contexte') {
-                        $('#modalBody').html('<p>La carte présentée ici a été produite dans le cadre du Master SIGMA, promotion 2023/2024, pour un projet de télédetection. Ce projet visait à produire, via des images Sentinel 2, une classification supervisée des zones de forêt dans la Haute-Garonne. Pour ce faire, trois niveaux de nomenclature, avec des degrés de détail différents, ont été mis en place. Ici, c\'est le troisième niveau qui vous est présenté, le plus détaillé de tous.</p>');
+                        $('#modalBody').html('<p>La carte présentée ici a été produite dans le cadre du Master SIGMA, promotion 2023/2024, pour un projet de télédetection. '
+                            +' Ce projet visait à produire, via des images Sentinel 2, une classification supervisée des zones de forêt dans la Haute-Garonne. ' 
+                            + 'Pour ce faire, trois niveaux de nomenclature, avec des degrés de détail différents, ont été mis en place. Ici, c\'est le ' 
+                            + 'deuxième niveau qui vous est présenté. Cette classification n\'est en aucun cas un reflet de la réalité et des ajustements '+
+                            'liés au modèle sont à faire. A titre de comparaison, vous avez accès à la nomenclature la plus récente proposée par la BD Forêt.</p>');
                     } else if (type === 'Informations') {
                         // Add information content
-                        $('#modalBody').html('<p>Cette cartographie a été réalisée par Michel Tarby, étudiant en 3ème année de l\'ENSAT</p>');
+                        $('#modalBody').html('<p>Cette cartographie a été réalisée par Michel Tarby, étudiant en 3ème année de l\'ENSAT. Plusieurs outils '+
+                            'sont à votre disposition afin de prendre connaissance des essences forestières présentes dans la Haute-Garonne. Ces outils sont '+
+                            'les suivants: <br> - Une barre permettant de gérer l\'opacité de la couche afin de pouvoir visualiser la carte en superposition '+
+                            'avec le fond de carte (image satellite notamment) <br> - Une sélection de fond de carte en haut à droite de l\écran '+
+                            '<br> - Une légende afin de distinguer quels sont les essences en présences. La correspondance entre les codes et leurs '+ 
+                            'intitulés sont dans un menu à gauche de l\'écran.<br> Par la suite, vous pouvez naviguer et zoomer comme bon vous semble '+
+                            'sur la carte. Bonne visite !</p>');
                     } else if (type === 'Sources') {
                         // Add source content
                         $('#modalBody').html('<p>Sources...</p>');
@@ -181,16 +192,16 @@
                 }
             );
             L.control.scale().addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
-        
-            var macro_element_6b4465d53ddcf38527e04aebb91a1211 = L.tileLayer.wms(
-                "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
-                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl1", "styles": "carte_essences_lvl1", "transparent": true, "version": "1.1.1"}
-            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
-        
-    
+            
+
             var macro_element_062c85610f3f60b914dd5cb29d8e523e = L.tileLayer.wms(
                 "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
                 {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl2", "styles": "carte_essences_lvl2", "transparent": true,  "version": "1.1.1"}
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+
+            var macro_element_2 = L.tileLayer.wms(
+                "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
+                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:Sample_BD_foret_T31TCJ", "styles": "lvl2_sample", "transparent": true,  "version": "1.1.1"}
             ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
 
             var tile_layer_f463fdceecbe9fa41194a86f263fa164 = L.tileLayer(
@@ -210,8 +221,8 @@
                     "Google Satellite" : tile_layer_7dcc31061d08a6967a0b8510badf64e7,
                 },
                 overlays :  {
-                    "Carte d\u0027essences de Niveau 1" : macro_element_6b4465d53ddcf38527e04aebb91a1211,
                     "Carte d\u0027essences de Niveau 2" : macro_element_062c85610f3f60b914dd5cb29d8e523e,
+                    "test": macro_element_2
                 },
             };
             L.control.layers(
@@ -232,6 +243,7 @@
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(opacitySlider);
             var lowerOpacity = new L.Control.lowerOpacity({ position: 'topleft' });
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(lowerOpacity);
+            
         
         //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
         //You only need to call it once. 
@@ -239,8 +251,9 @@
             
         //Set initial opacity to 0.5 (Optional)
             macro_element_062c85610f3f60b914dd5cb29d8e523e.setOpacity(0.5);
-
             
+            
+        
 
         
 </script>
