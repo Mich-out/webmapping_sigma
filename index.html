@@ -2,6 +2,7 @@
 <head>    
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <script>
+
             L_NO_TOUCH = false;
             L_DISABLE_3D = false;
             function showPopup() {
@@ -73,7 +74,38 @@
 
                 .opacity_slider_control.ui-slider.ui-slider-vertical.ui-widget.ui-widget-content.ui-corner-all.leaflet-control {
                     margin-left: 15px;
-                }   
+                }
+
+                .sidepanel-content {
+                    font-size: 1.5rem;
+                }
+
+                .sidepanel-content h4 {
+                    margin-top: 0;
+                    margin-bottom: 1rem;
+                    font-size: 2rem;
+                }
+
+                .sidepanel-content a {
+                    text-decoration: none;
+                    font-size: 6rem;
+                    color: #199900;
+                    transition: color 0.3s ease-in;
+                }
+
+                .sidepanel-content a:hover {
+                    color: #116600;
+                    text-decoration: underline;
+                }
+
+                .sidepanel-tab-content img {
+                    display: block;
+                    margin: 0 auto; /* Pour centrer l'image horizontalement */
+                    width: 60%; /* Pour que l'image occupe 80% de la largeur du conteneur */
+                    height: auto; /* Pour maintenir les proportions originales de l'image */
+                    margin-top: 2rem
+                }
+                  
                 
             </style>
 
@@ -91,14 +123,12 @@
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
-
-
+            <link rel="stylesheet" href="css/leaflet-sidepanel.css" />
 
             <!-- jQuery -->
-            <script src="lib/jquery/jquery-1.9.1.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
             <!-- Leaflet Scripts -->
-            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
 
             <!-- Bootstrap Scripts -->
@@ -110,6 +140,10 @@
             <script src="https://unpkg.com/leaflet-transparency@latest/leaflet-transparency.js"></script>
             <script src="lib/opacity/Control.Opacity.js"></script>
             <script src="lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+            <script src="js/leaflet-sidepanel.min.js"></script>
+
+            
+
             
         
 </head>
@@ -124,7 +158,54 @@
             
             
             
-            <div class="folium-map" id="map_12a535684e9cbcfc61dc2e70e64e6fac" ></div>
+            <div class="folium-map" id="map_12a535684e9cbcfc61dc2e70e64e6fac" >
+                <!-- Side Panel left -->
+                <div id="mySidepanelLeft" class="sidepanel" aria-label="side panel" aria-hidden="false">
+                    <div class="sidepanel-inner-wrapper">
+                        <nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+                            <ul class="sidepanel-tabs">
+                                <li class="sidepanel-tab">
+                                    <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">
+                                        Correspondances
+                                    </a>
+                                </li>
+                                <li class="sidepanel-tab">
+                                    <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-2">
+                                        Images
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </nav>
+                        <div class="sidepanel-content-wrapper">
+                            <div class="sidepanel-content">
+                                <div class="sidepanel-tab-content" data-tab-content="tab-1">
+                                    <h4>Table des correspondances</h4>
+                                    <p align="justify">Vous trouverez ci-dessous l'intitulé correspondant aux entrées de légende de la carte:<br>
+                                        - 10 : Feuillus<br>
+                                        - 11 : Peupleraie<br>
+                                        - 21 : Conifères autres que pin<br>
+                                        - 22 : Pins<br>
+                                        - 23 : Mélange pins et autres conifères</p>
+                                </div>
+                                <div class="sidepanel-tab-content" data-tab-content="tab-2">
+                                    <h4>Images</h4>
+                                    <p align="justify">Voici des images d'illustration pour chaque entrée de légende. Ces images sont à but d'illustration et ne sauraient
+                                        pas représenter les espèces réellement en présence dans la zone :<br>
+                                        - Feuillus: <img src=https://upload.wikimedia.org/wikipedia/commons/0/0b/Raunkiaer.jpg alt="Feuillus"><br>
+                                        - Peupleraie: <img src="https://franceboisforet.fr/wp-content/uploads/2019/03/vue_peupleraie.jpg" alt="Peupleraie"><br>
+                                        - Conifères autres que pin (Cèdres): <img src="https://www.francebleu.fr/s3/cruiser-production/2023/04/1c11d7e1-aad6-4917-8654-e315128341e5/1200x680_sc_csm-p-ens-forets-foret-des-cedres-5-554b41c541.jpg" alt="Cèdres"><br>
+                                        - Pins: <img src="https://www.forestopic.com/images/Articles/2021/Pins-Var-Joel-Perrin-CNPF.jpg" alt="Pins"></p>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidepanel-toggle-container">
+                        <button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
+                    </div>
+                </div>
+            </div>
             <!-- Fenêtre modale Bootstrap -->
             <div class="modal fade" id="newsModal" role="dialog">
                 <div class="modal-dialog">
@@ -146,6 +227,8 @@
                 <img src="img/bandeau_master_sigma.jpg" alt="Description de l'image">
             </div>
 
+        
+
             <script>
                 function showPopup(type) {
                     // Utilisation de la fonction Bootstrap pour afficher la fenêtre modale
@@ -155,27 +238,29 @@
                     $('#modalTitle').text(type);
                     
                     if (type === 'Contexte') {
-                        $('#modalBody').html('<p>La carte présentée ici a été produite dans le cadre du Master SIGMA, promotion 2023/2024, pour un projet de télédetection. '
-                            +' Ce projet visait à produire, via des images Sentinel 2, une classification supervisée des zones de forêt dans la Haute-Garonne. ' 
-                            + 'Pour ce faire, trois niveaux de nomenclature, avec des degrés de détail différents, ont été mis en place. Ici, c\'est le ' 
-                            + 'deuxième niveau qui vous est présenté. Cette classification n\'est en aucun cas un reflet de la réalité et des ajustements '+
-                            'liés au modèle sont à faire. A titre de comparaison, vous avez accès à la nomenclature la plus récente proposée par la BD Forêt.</p>');
+                        $('#modalBody').html('<p align="justify">La carte que nous présentons ici a été produite dans le cadre du Master SIGMA - promotion 2023/2024 - pour un projet de télédétection et valorisée via cette cartographie en ligne dans le cadre de l\'UE Webmapping. L\'objectif de ce projet était de créer une classification supervisée des zones de forêt dans la Haute-Garonne en utilisant des images Sentinel 2. Trois niveaux de nomenclature, avec différents degrés de détail, ont été mis en place. Dans cette carte, nous vous présentons le deuxième niveau de classification. Il est important de noter que cette classification ne reflète pas la réalité et des ajustements liés au modèle sont nécessaires. Pour une comparaison, vous pouvez également accéder à la nomenclature la plus récente proposée par la BD Forêt.<br><br>La forêt en France occupe 31 % du territoire métropolitain et joue un rôle essentiel dans l’économie du bois, la préservation écologique, le patrimoine culturel et les loisirs. Pour garantir la durabilité de ces usages, la télédétection est de plus en plus utilisée. La BD Forêt® de l’IGN, qui identifie les types de formations végétales à partir de photographies aériennes en infrarouge, est un outil essentiel. Cependant, la BD Forêt® présente des inconvénients en termes de temporalité et d’exhaustivité. Dans le cadre d’une étude visant à actualiser et approfondir la BD Forêt® V2, nous évaluons son potentiel à travers une classification supervisée. Notre zone d’étude est la Haute-Garonne, avec un accent particulier sur la forêt de Bouconne, principalement composée de feuillus.</p>');
                     } else if (type === 'Informations') {
                         // Add information content
-                        $('#modalBody').html('<p>Cette cartographie a été réalisée par Michel Tarby, étudiant en 3ème année de l\'ENSAT. Plusieurs outils '+
+                        $('#modalBody').html('<p align="justify">Cette cartographie a été réalisée par Michel Tarby, étudiant en 3ème année de l\'ENSAT. Plusieurs outils '+
                             'sont à votre disposition afin de prendre connaissance des essences forestières présentes dans la Haute-Garonne. Ces outils sont '+
-                            'les suivants: <br> - Une barre permettant de gérer l\'opacité de la couche afin de pouvoir visualiser la carte en superposition '+
-                            'avec le fond de carte (image satellite notamment) <br> - Une sélection de fond de carte en haut à droite de l\écran '+
-                            '<br> - Une légende afin de distinguer quels sont les essences en présences. La correspondance entre les codes et leurs '+ 
-                            'intitulés sont dans un menu à gauche de l\'écran.<br> Par la suite, vous pouvez naviguer et zoomer comme bon vous semble '+
+                            'les suivants: </p> <p align="justify">- Une barre permettant de gérer l\'opacité de la couche afin de pouvoir visualiser la carte en superposition '+
+                            'avec le fond de carte (image satellite notamment). Par défaut, l\'opacité est définie à 50% <br><br> - Une sélection de fond de carte en haut à droite de l\'écran ainsi que la BD forêt initiale (désactivée par défaut)'+
+                            '<br><br> - Une légende afin de distinguer quels sont les essences en présence. <br><br>- Un panneau latéral contenant la correspondance intitulés/code légende ainsi'+
+                            'que des images de chaque type d\'essence.<br><br> Par la suite, vous pouvez naviguer et zoomer comme bon vous semble '+
                             'sur la carte. Bonne visite !</p>');
                     } else if (type === 'Sources') {
                         // Add source content
-                        $('#modalBody').html('<p>Sources...</p>');
+                        $('#modalBody').html('<p align="justify">Side Panel Module: Maxwell Bento, <a href="https://github.com/maxwell-ilai/Leaflet.SidePanel" target="_blank">Lien du plugin</a><br>'+
+                            'WMS Legend Module: Tim Sutton, <a href="https://github.com/kartoza/leaflet-wms-legend" target="_blank">Lien du plugin</a><br>'+
+                            'Opacity control Module: lizardtechblog, <a href="https://github.com/lizardtechblog/Leaflet.OpacityControls/tree/master?tab=readme-ov-file" target="_blank">Lien du plugin</a><br>'+
+                            'Image feuillus: Wikipedia, <a href="https://upload.wikimedia.org/wikipedia/commons/0/0b/Raunkiaer.jpg" target="_blank">Lien vers l\'image</a><br>'+
+                            'Image peupleraie: France Bois Forêt, <a href="https://franceboisforet.fr/wp-content/uploads/2019/03/vue_peupleraie.jpg" target="_blank">Lien vers l\'image</a><br>'+
+                            'Image cèdres: France Bleu, <a href="https://www.francebleu.fr/s3/cruiser-production/2023/04/1c11d7e1-aad6-4917-8654-e315128341e5/1200x680_sc_csm-p-ens-forets-foret-des-cedres-5-554b41c541.jpg" target="_blank">Lien vers l\'image</a><br>'+
+                            'Image pins: Forestopic, <a href="https://www.forestopic.com/images/Articles/2021/Pins-Var-Joel-Perrin-CNPF.jpg" target="_blank">Lien vers l\'image</a></p>');
                     }
                 }
 
-                
+                  
             </script>
         
 </body>
@@ -191,18 +276,32 @@
                     preferCanvas: false,
                 }
             );
+
+            const sidepanelRight = L.control.sidepanel('mySidepanelLeft', {
+                panelPosition: 'left',
+                tabsPosition: 'top',
+                pushControls: true,
+                darkMode: true,
+                startTab: 'tab-1'
+            }).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+
             L.control.scale().addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
             
+            map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane200").style.zIndex = 200;
+            map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane800").style.zIndex = 800;
 
             var macro_element_062c85610f3f60b914dd5cb29d8e523e = L.tileLayer.wms(
                 "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
-                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl2", "styles": "carte_essences_lvl2", "transparent": true,  "version": "1.1.1"}
-            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl2", "styles": "carte_essences_lvl2", "transparent": true,  "version": "1.1.1", "pane": "pane800" }
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac).setZIndex(1);
 
             var macro_element_2 = L.tileLayer.wms(
                 "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
-                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:Sample_BD_foret_T31TCJ", "styles": "lvl2_sample", "transparent": true,  "version": "1.1.1"}
-            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
+                {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:Sample_BD_foret_T31TCJ", "styles": "lvl2_sample", "transparent": true,  "version": "1.1.1", "pane": "pane200" }
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac).setZIndex(2);
+
+            map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane200").style.zIndex = 200;
+            map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane800").style.zIndex = 800;
 
             var tile_layer_f463fdceecbe9fa41194a86f263fa164 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -220,9 +319,9 @@
                     "openstreetmap" : tile_layer_f463fdceecbe9fa41194a86f263fa164,
                     "Google Satellite" : tile_layer_7dcc31061d08a6967a0b8510badf64e7,
                 },
-                overlays :  {
+                overlays :  {   
                     "Carte d\u0027essences de Niveau 2" : macro_element_062c85610f3f60b914dd5cb29d8e523e,
-                    "test": macro_element_2
+                    "Carte originale des essences de Niveau 2": macro_element_2
                 },
             };
             L.control.layers(
@@ -243,7 +342,7 @@
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(opacitySlider);
             var lowerOpacity = new L.Control.lowerOpacity({ position: 'topleft' });
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(lowerOpacity);
-            
+    
         
         //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
         //You only need to call it once. 
@@ -251,6 +350,10 @@
             
         //Set initial opacity to 0.5 (Optional)
             macro_element_062c85610f3f60b914dd5cb29d8e523e.setOpacity(0.5);
+
+            map_12a535684e9cbcfc61dc2e70e64e6fac.removeLayer(macro_element_2)
+            
+
             
             
         
