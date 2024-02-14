@@ -33,12 +33,12 @@
 
                 .topnav {
                 overflow: hidden;
-                background-color: #333;
+                background-color: #86A59C;
                 }
 
                 .topnav a {
                 float: left;
-                color: #f2f2f2;
+                color: #270722;
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
@@ -46,8 +46,8 @@
                 }
 
                 .topnav a:hover {
-                background-color: #ddd;
-                color: black;
+                background-color: #7D5BA6;
+                color: white;
                 }
 
                 .topnav a.active {
@@ -57,8 +57,9 @@
                 h1 {
                     font-family: 'Gill sans', sans-serif;
                     margin: 0; /* Remove default margin */
+                    color: #daba05;
                     padding: 10px 0; /* Add padding for spacing */
-                    border-bottom: 1px solid rgb(107, 106, 106); /* Add white border for separation */
+                    border-bottom: 1px solid rgb(107, 107, 106); /* Add white border for separation */
                 }
                 .top-right-image-container {
                     position: absolute;
@@ -68,6 +69,18 @@
 
                 .top-right-image-container img {
                     width: 10vw; /* Ajustez la largeur de l'image en fonction de vos besoins */
+                    height: auto; /* Garantit que la hauteur est ajustée proportionnellement à la largeur */
+                    border-radius: 5px; 
+                }
+
+                .top-left-image-container {
+                    position: absolute;
+                    top: 1vw; /* Ajustez la position verticale en fonction de vos besoins */
+                    left: 1vw; /* Ajustez la position horizontale en fonction de vos besoins */
+                }
+
+                .top-left-image-container img {
+                    width: 8vw; /* Ajustez la largeur de l'image en fonction de vos besoins */
                     height: auto; /* Garantit que la hauteur est ajustée proportionnellement à la largeur */
                     border-radius: 5px; 
                 }
@@ -89,12 +102,12 @@
                 .sidepanel-content a {
                     text-decoration: none;
                     font-size: 6rem;
-                    color: #199900;
+                    color: #270722;
                     transition: color 0.3s ease-in;
                 }
 
                 .sidepanel-content a:hover {
-                    color: #116600;
+                    color: #270722;
                     text-decoration: underline;
                 }
 
@@ -104,6 +117,10 @@
                     width: 60%; /* Pour que l'image occupe 80% de la largeur du conteneur */
                     height: auto; /* Pour maintenir les proportions originales de l'image */
                     margin-top: 2rem
+                }
+                .modal-header {
+                    background-color: #86A59C;
+                    color: #270722
                 }
                   
                 
@@ -148,8 +165,8 @@
         
 </head>
 <body>    
-            <div class="topnav">
-                <h1 style="color: #ffffff; text-align: center; padding: 14px 16px; font-family: 'Rozha One', sans-serif; margin-top: 0.5vw; margin-bottom: 0;">
+            <div class="topnav"> <!-- Titre -->
+                <h1 style="color: #ffffff; text-align: center; color:#270722; padding: 14px 16px; font-family: 'Rozha One', sans-serif; margin-top: 0.5vw; margin-bottom: 0;">
                     Présentation de la carte d'essences forestières de Niveau 2</h1>
                 <a href="#" onclick="showPopup('Contexte')">Contexte</a>
                 <a href="#" onclick="showPopup('Informations')">Informations sur la page</a>
@@ -157,7 +174,7 @@
             </div>
             
             
-            
+            <!-- Map -->
             <div class="folium-map" id="map_12a535684e9cbcfc61dc2e70e64e6fac" >
                 <!-- Side Panel left -->
                 <div id="mySidepanelLeft" class="sidepanel" aria-label="side panel" aria-hidden="false">
@@ -222,14 +239,17 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Logos sigma et ensat -->
             <div class="top-right-image-container">
-                <img src="img/bandeau_master_sigma.jpg" alt="Description de l'image">
+                <img src="img/bandeau_master_sigma.jpg" alt="Logo master Sigma">
             </div>
-
+            <div class="top-left-image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/fr/5/57/Logo_inp_ensat_2022.png" alt="Logo ENSAT">
+            </div>
         
 
             <script>
+                // Popup header
                 function showPopup(type) {
                     // Utilisation de la fonction Bootstrap pour afficher la fenêtre modale
                     $('#newsModal').modal('show');
@@ -265,7 +285,7 @@
         
 </body>
 <script>    
-    
+            // Instance carte centrée sur Toulouse
             var map_12a535684e9cbcfc61dc2e70e64e6fac = L.map(
                 "map_12a535684e9cbcfc61dc2e70e64e6fac",
                 {
@@ -276,7 +296,7 @@
                     preferCanvas: false,
                 }
             );
-
+            // Mise en place panneau latéral
             const sidepanelRight = L.control.sidepanel('mySidepanelLeft', {
                 panelPosition: 'left',
                 tabsPosition: 'top',
@@ -285,24 +305,26 @@
                 startTab: 'tab-1'
             }).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
 
+            // Ajout du controle de zoom
             L.control.scale().addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
             
+            // Création de panes pour gérer l'index de chaque couche
             map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane200").style.zIndex = 200;
             map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane800").style.zIndex = 800;
 
+            // Récupération flux WMS Carte essences lvl2
             var macro_element_062c85610f3f60b914dd5cb29d8e523e = L.tileLayer.wms(
                 "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
                 {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:carte_essences_lvl2", "styles": "carte_essences_lvl2", "transparent": true,  "version": "1.1.1", "pane": "pane800" }
-            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac).setZIndex(1);
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
 
+            // Récupération flux WMS Carte échantillons
             var macro_element_2 = L.tileLayer.wms(
                 "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms",
                 {"attribution": "", "format": "image/png", "layers": "tarby_ruiz_sauger_mervant:Sample_BD_foret_T31TCJ", "styles": "lvl2_sample", "transparent": true,  "version": "1.1.1", "pane": "pane200" }
-            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac).setZIndex(2);
+            ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
 
-            map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane200").style.zIndex = 200;
-            map_12a535684e9cbcfc61dc2e70e64e6fac.createPane("pane800").style.zIndex = 800;
-
+            // Récupération fonds de carte
             var tile_layer_f463fdceecbe9fa41194a86f263fa164 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
@@ -313,7 +335,7 @@
                 {"attribution": "Google", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
         
-    
+            // Mise en place controle des couches 
             var layer_control_e86a184cb30d5a4f53d49b7706346094 = {
                 base_layers : {
                     "openstreetmap" : tile_layer_f463fdceecbe9fa41194a86f263fa164,
@@ -324,39 +346,31 @@
                     "Carte originale des essences de Niveau 2": macro_element_2
                 },
             };
+
             L.control.layers(
                 layer_control_e86a184cb30d5a4f53d49b7706346094.base_layers,
                 layer_control_e86a184cb30d5a4f53d49b7706346094.overlays,
                 {"autoZIndex": true, "collapsed": true, "position": "topright"}
             ).addTo(map_12a535684e9cbcfc61dc2e70e64e6fac);
 
+            // Récupération de la légende
             uri = "https://www.geotests.net/geoserver/tarby_ruiz_sauger_mervant/wms?";
             uri += "SERVICE=WMS&VERSION=1.3.0&SLD_VERSION=1.1.0&";
             uri += "REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=tarby_ruiz_sauger_mervant:carte_essences_lvl2&STYLE=carte_essences_lvl2";
             L.wmsLegend(uri);
 
+            // Mise en place controle opacité
             var higherOpacity = new L.Control.higherOpacity({ position: 'topleft' });
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(higherOpacity);
-            
             var opacitySlider = new L.Control.opacitySlider({ position: 'topleft'});
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(opacitySlider);
             var lowerOpacity = new L.Control.lowerOpacity({ position: 'topleft' });
             map_12a535684e9cbcfc61dc2e70e64e6fac.addControl(lowerOpacity);
     
-        
-        //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
-        //You only need to call it once. 
             opacitySlider.setOpacityLayer(macro_element_062c85610f3f60b914dd5cb29d8e523e);
             
-        //Set initial opacity to 0.5 (Optional)
             macro_element_062c85610f3f60b914dd5cb29d8e523e.setOpacity(0.5);
 
             map_12a535684e9cbcfc61dc2e70e64e6fac.removeLayer(macro_element_2)
-            
-
-            
-            
-        
-
         
 </script>
